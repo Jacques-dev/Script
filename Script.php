@@ -15,10 +15,15 @@
 
 <div id="content">
   <?php if(isset($_POST["edit"])) { ?>
-    edit
-    <form action="Home.php" method="post">
-      <input type="text" name="addQ" placeholder="Add question">
-    </form>
+    <?php
+      $tableau = []
+
+    ?>
+    <button type="button" name="button" onclick=""></button>
+    
+
+    <?= $_SESSION["scriptName"]; ?>
+
   <?php } if(isset($_POST["use"])) { ?>
     use
   <?php } ?>

@@ -72,58 +72,38 @@
           <button type="submit" name="addScript" onclick="openScriptAddingPan()">Créer script</button>
           <form action="Home.php" method="post" id="newScript">
             <input type="text" name="scriptName" placeholder="nom">
-            <button type="submit" name="addNewScript">Créer</button>
+            <button type="submit" name="addNewScript">Valider</button>
           </form>
 
           <?php
 
             if(isset($_POST["addNewScript"])) {
               if (!empty($_POST["scriptName"])) {
-
                 $sql = $con->prepare("INSERT INTO script (name, pseudo) VALUES (?, ?)");
                 $sql->bind_param('ss', $name, $pseudo);
-
                 $name = $_POST["scriptName"];
                 $pseudo = $_SESSION["pseudo"];
-
                 $sql->execute();
-
-                $sql = "SELECT ids, name FROM script WHERE pseudo = '$pseudo'";
-                $result = $con->query($sql);
-                while ($row = $result->fetch_assoc()) {?>
-                  <form action="Home.php" method="post"><?php
-                    echo "<input type='hidden' value='".$row["ids"]."' name='scriptInfo'/>";
-                    echo "<button type='submit' name='edit'>".$row["name"]."</button>";
-                    echo "<button type='submit' name='deleteScript'>Supprimer</button>";
-                    echo "<br>";?>
-                  </form><?php
-                }
               }
+            } elseif (isset($_POST["renameScript"])) {
+              $sql = "UPDATE script SET name = '".$_POST['scriptName']."' WHERE ids = ".$_POST['scriptInfo'];
+              $result = $con->query($sql);
             } elseif (isset($_POST["deleteScript"])) {
               $sql = "DELETE FROM script WHERE ids = ".$_POST['scriptInfo'];
               $result = $con->query($sql);
-
-              $sql = "SELECT ids, name FROM script WHERE pseudo = '$pseudo'";
-              $result = $con->query($sql);
-              while ($row = $result->fetch_assoc()) {?>
-                <form action="Home.php" method="post"><?php
-                  echo "<input type='hidden' value='".$row["ids"]."' name='scriptInfo'/>";
-                  echo "<button type='submit' name='edit'>".$row["name"]."</button>";
-                  echo "<button type='submit' name='deleteScript'>Supprimer</button>";
-                  echo "<br>";?>
-                </form><?php
-              }
-            } else {
-              $sql = "SELECT ids, name FROM script WHERE pseudo = '$pseudo'";
-              $result = $con->query($sql);
-              while ($row = $result->fetch_assoc()) {?>
-                <form action="Home.php" method="post"><?php
-                  echo "<input type='hidden' value='".$row["ids"]."' name='scriptInfo'/>";
-                  echo "<button type='submit' name='edit'>".$row["name"]."</button>";
-                  echo "<button type='submit' name='deleteScript'>Supprimer</button>";
-                  echo "<br>";?>
-                </form><?php
-              }
+            } elseif (isset($_POST["edit"])) {
+              $_SESSION["ids"] = explode(":",$_POST["scriptInfo"])[0];
+              $_SESSION["scriptName"] = explode(":",$_POST["scriptInfo"])[1];
+            }
+            $sql = "SELECT ids, name FROM script WHERE pseudo = '$pseudo'";
+            $result = $con->query($sql);
+            while ($row = $result->fetch_assoc()) {?>
+              <form action="Home.php" method="post"><?php
+                echo "<input type='hidden' value='".$row["ids"].":".$row["name"]."' name='scriptInfo'/>";
+                echo "<button type='submit' name='edit'>".$row["name"]."</button>";
+                echo "<button type='submit' name='deleteScript'>Supprimer</button>";?>
+                <?php echo "<br>";?>
+              </form><?php
             }
           } ?>
       </div>

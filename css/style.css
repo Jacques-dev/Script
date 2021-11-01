@@ -56,7 +56,7 @@ nav2 {
   position: absolute;
   top: 0;
   left: 0;
-  width: 10vw;
+  width: 15vw;
   height: 100vh;
   opacity: 0.5;
 }
@@ -79,7 +79,7 @@ nav3 {
   position: absolute;
   top: 0;
   left: 0;
-  width: 10vw;
+  width: 15vw;
   height: 5vh;
 }
 
@@ -87,7 +87,7 @@ nav3 {
   position: absolute;
   top: 0;
   left: 0;
-  width: 10vw;
+  width: 15vw;
   height: 5vh;
   text-align: center;
   padding: 1.2vh;
@@ -96,8 +96,8 @@ nav3 {
 content {
   position: absolute;
   top: 5vh;
-  left: 10vw;
-  width: 90vw;
+  left: 15vw;
+  width: 85vw;
   height: 95vh;
 }
 
