@@ -23,4 +23,18 @@
   height: 90vh;
   /* background-color: yellow; */
   padding: 25px;
+  overflow: scroll;
+}
+
+.eventForm {
+  float: left;
+  margin: 0 0 5vh 5vw;
+}
+
+.event {
+  background-color: #fff5e3;
+  box-shadow: 1px 1px 1px black;
+  padding: 5px;
+  border: 1px solid black;
+  border-radius: 5px;
 }

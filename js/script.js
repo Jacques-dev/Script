@@ -12,8 +12,3 @@ function openScriptAddingPan() {
     newScriptButton.style.display = "block";
   }
 }
-
-
-function addcolumn(tab) {
-  return
-}

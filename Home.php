@@ -2,12 +2,16 @@
 <?php
   session_start();
   include("BDD/Connexion.php");
+  include("Functions.php");
+  include("model/Event.php");
 
   if (isset($_SESSION["pseudo"])) {
     $pseudo = $_SESSION["pseudo"];
     $_SESSION["pageIs"] = "Script.php";
   } else {
     $_SESSION["pageIs"] = "Presentation.php";
+    $_SESSION["startingScript"] = False;
+    $_SESSION["eventsToPrint"] = [];
   }
 
   if (isset($_SESSION["cookie"])) {
