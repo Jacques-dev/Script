@@ -19,4 +19,31 @@
 
   }
 
+  function addEvent($textEvent, $predEvent, $scriptEvent) {
+
+    include("../BDD/Connexion.php");
+
+    $sql = $con->prepare("INSERT INTO event (text,pred,script) VALUES (?, ?, ?)");
+    $sql->bind_param('sii', $text, $pred, $script);
+
+    $text = $textEvent;
+    $pred = $predEvent;
+    $script = $scriptEvent;
+
+    $sql->execute();
+  }
+
+  function updateEvent($textEvent, $idEvent) {
+
+    include("../BDD/Connexion.php");
+
+    $sql = $con->prepare("UPDATE event SET text = ? WHERE ide = ?");
+    $sql->bind_param('si', $text, $id);
+
+    $text = $textEvent;
+    $id = $idEvent;
+
+    $sql->execute();
+  }
+
 ?>

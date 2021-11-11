@@ -13,18 +13,21 @@
       <form class="eventForm" style="width: <?= $width; ?>vw; height: <?= $height; ?>vh" action="Home.php" method="post">
         <input type="hidden" name="idEvent" value="<?= $events[$i]->getID(); ?>">
         <input type="hidden" name="predEvent" value="<?= $events[$i]->getPred(); ?>">
-        <button type="submit" name="checkNextEvents">
-          <div class="event" style="width: <?= $width; ?>vw; height: <?= $height; ?>vh">
-            <?= $events[$i]->getText(); ?>
-          </div>
-        </button>
-        <button class="deleteEvent" type="submit" name="deleteEvent">-</button>
+        <div class="event" style="width: <?= $width; ?>vw; height: <?= $height; ?>vh">
+          <textarea type="text" name="textEvent"><?= $events[$i]->getText(); ?></textarea>
+        </div>
+        <button type="submit" name="checkNextEvents">Voir</button>
+        <button class="deleteEvent" type="submit" name="deleteEvent">Supprimer</button>
+        <button class="updateEvent" type="submit" name="updateEvent">Modifier</button>
       </form>
       <?php
     }
     ?>
       <form id="addEventForm" action="Home.php" method="post">
-        <button class="addEvent" type="submit" name="addEvent">Ajouter un event +</button>
+        <input type="hidden" name="predEvent" value="<?= $_SESSION["eventsToPrint"][0]->getPred(); ?>">
+        <input type="hidden" name="scriptEvent" value="<?= $_SESSION["ids"]; ?>">
+        <input type="text" name="textEvent">
+        <button class="addEvent" type="submit" name="addEvent">Ajouter un event</button>
       </form>
     <?php
 
@@ -60,12 +63,25 @@
     }
   }
 
-  if(isset($_POST["deleteEvent"])) {
-
-    deleteEvent($_POST["deleteEvent"]);
+  if(isset($_POST["deleteEvent"]) || isset($_POST["addEvent"]) || isset($_POST["updateEvent"])) {
+    if(isset($_POST["deleteEvent"])) {
+      deleteEvent($_POST["deleteEvent"]);
+    }
+    if(isset($_POST["addEvent"])) {
+      addEvent($_POST["textEvent"], $_POST["predEvent"], $_POST["scriptEvent"]);
+    }
+    if(isset($_POST["updateEvent"])) {
+      updateEvent($_POST["textEvent"], $_POST["idEvent"]);
+    }
 
     $pred = $_POST["predEvent"];
-    $sql = "SELECT * FROM event WHERE pred = $pred";
+    if ($pred == -1) {
+      $ids = $_SESSION['ids'];
+      $sql = "SELECT * FROM event WHERE pred IS NULL AND script = $ids";
+    } else {
+      $sql = "SELECT * FROM event WHERE pred = $pred";
+    }
+
     $result = $con->query($sql);
 
     $res = [];
@@ -73,7 +89,6 @@
       array_push($res, $object);
     }
     $_SESSION["eventsToPrint"] = $res;
-
     $_SESSION["pred"] = $_SESSION["eventsToPrint"][0]->getID();
 
   }

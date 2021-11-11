@@ -41,6 +41,7 @@
   border-radius: 5px;
   max-width: 20vw;
   max-height: 20vh;
+  z-index: 1;
 }
 
 #addEventForm {
@@ -49,7 +50,7 @@
   left: 16.5vw;
 }
 
-.deleteEvent {
+.deleteEvent, .updateEvent {
   position: relative;
   top: 0;
   left: 0;
