@@ -19,6 +19,7 @@
         <button type="submit" name="checkNextEvents">Voir</button>
         <button class="deleteEvent" type="submit" name="deleteEvent">Supprimer</button>
         <button class="updateEvent" type="submit" name="updateEvent">Modifier</button>
+        <button class="insertEvent" type="submit" name="insertEvent">Développer</button>
       </form>
       <?php
     }
@@ -91,6 +92,19 @@
     $_SESSION["eventsToPrint"] = $res;
     $_SESSION["pred"] = $_SESSION["eventsToPrint"][0]->getID();
 
+  }
+
+  if(isset($_POST["insertEvent"])) {
+    insertEvent("", $_POST["idEvent"], $_SESSION["ids"]);
+    $ide = $_POST["idEvent"];
+    $sql = "SELECT * FROM event WHERE pred = $ide";
+    $result = $con->query($sql);
+    $res = [];
+    while ($object = $result->fetch_object("Event")) {
+      array_push($res, $object);
+    }
+    $_SESSION["eventsToPrint"] = $res;
+    $_SESSION["pred"] = $_SESSION["eventsToPrint"][0]->getID();
   }
 
 ?>

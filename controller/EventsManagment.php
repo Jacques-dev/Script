@@ -46,4 +46,18 @@
     $sql->execute();
   }
 
+  function insertEvent($textEvent, $predEvent, $scriptEvent) {
+
+    include("../BDD/Connexion.php");
+
+    $sql = $con->prepare("INSERT INTO event (text,pred,script) VALUES (?, ?, ?)");
+    $sql->bind_param('sii', $text, $pred, $script);
+
+    $text = $textEvent;
+    $pred = $predEvent;
+    $script = $scriptEvent;
+
+    $sql->execute();
+  }
+
 ?>
