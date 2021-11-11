@@ -2,11 +2,11 @@
 
 <?php
 
-  include("BDD/Connexion.php");
+  include("../BDD/Connexion.php");
 
   function printEvents($nb, $events, $ide) {
-    $width = 20;
-    $height = 20;
+    $width = 80 / $nb;
+    $height = 80 / $nb;
     for ($i = 0 ; $i != $nb ; $i++) {
       ?>
       <form class="eventForm" style="width: <?= $width; ?>vw; height: <?= $height; ?>vh" action="Home.php" method="post">
@@ -16,9 +16,15 @@
             <?= $events[$i]->getText(); ?>
           </div>
         </button>
+        <button class="deleteEvent" type="submit" name="deleteEvent">-</button>
       </form>
       <?php
     }
+    ?>
+      <form id="addEventForm" action="Home.php" method="post">
+        <button class="addEvent" type="submit" name="addEvent">Ajouter un event +</button>
+      </form>
+    <?php
 
   }
 
@@ -33,6 +39,7 @@
     }
     $_SESSION["eventsToPrint"] = $res;
     $_SESSION["startingScript"] = False;
+    $_SESSION["pred"] = $_SESSION["eventsToPrint"][0]->getID();
   } else {
     if(isset($_POST["checkNextEvents"])) {
       $ide = $_POST["predEvent"];

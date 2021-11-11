@@ -28,8 +28,9 @@
 
 .eventForm {
   float: left;
-  margin: 0 0 5vh 5vw;
+  margin: 0 5vw 5vh 0;
   max-width: 20vw;
+  max-height: 20vh;
 }
 
 .event {
@@ -38,4 +39,18 @@
   padding: 5px;
   border: 1px solid black;
   border-radius: 5px;
+  max-width: 20vw;
+  max-height: 20vh;
+}
+
+#addEventForm {
+  position: fixed;
+  bottom: 5vh;
+  left: 16.5vw;
+}
+
+.deleteEvent {
+  position: relative;
+  top: 0;
+  left: 0;
 }
