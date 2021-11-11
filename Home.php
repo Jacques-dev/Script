@@ -1,16 +1,14 @@
 
 <?php
+  include("model/Event.php");
   session_start();
   include("BDD/Connexion.php");
   include("Functions.php");
-  include("model/Event.php");
 
   if (isset($_SESSION["pseudo"])) {
     $pseudo = $_SESSION["pseudo"];
-    $_SESSION["pageIs"] = "Script.php";
   } else {
     $_SESSION["pageIs"] = "Presentation.php";
-    $_SESSION["startingScript"] = False;
     $_SESSION["eventsToPrint"] = [];
   }
 
@@ -98,6 +96,8 @@
             } elseif (isset($_POST["edit"])) {
               $_SESSION["ids"] = explode(":",$_POST["scriptInfo"])[0];
               $_SESSION["scriptName"] = explode(":",$_POST["scriptInfo"])[1];
+              $_SESSION["startingScript"] = True;
+              $_SESSION["pageIs"] = "Script.php";
             }
             $sql = "SELECT ids, name FROM script WHERE pseudo = '$pseudo'";
             $result = $con->query($sql);

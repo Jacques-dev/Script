@@ -29,6 +29,7 @@
 .eventForm {
   float: left;
   margin: 0 0 5vh 5vw;
+  max-width: 20vw;
 }
 
 .event {
