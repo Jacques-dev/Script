@@ -7,10 +7,12 @@
   function printEvents($nb, $events, $ide) {
     $width = 80 / $nb;
     $height = 80 / $nb;
+
     for ($i = 0 ; $i != $nb ; $i++) {
       ?>
       <form class="eventForm" style="width: <?= $width; ?>vw; height: <?= $height; ?>vh" action="Home.php" method="post">
-        <input type="hidden" name="predEvent" value="<?= $events[$i]->getID(); ?>">
+        <input type="hidden" name="idEvent" value="<?= $events[$i]->getID(); ?>">
+        <input type="hidden" name="predEvent" value="<?= $events[$i]->getPred(); ?>">
         <button type="submit" name="checkNextEvents">
           <div class="event" style="width: <?= $width; ?>vw; height: <?= $height; ?>vh">
             <?= $events[$i]->getText(); ?>
@@ -40,21 +42,40 @@
     $_SESSION["eventsToPrint"] = $res;
     $_SESSION["startingScript"] = False;
     $_SESSION["pred"] = $_SESSION["eventsToPrint"][0]->getID();
-  } else {
-    if(isset($_POST["checkNextEvents"])) {
-      $ide = $_POST["predEvent"];
-      $sql = "SELECT * FROM event WHERE pred = $ide";
-      $result = $con->query($sql);
-      if ($result->num_rows > 0) {
-        $res = [];
-        while ($object = $result->fetch_object("Event")) {
-          array_push($res, $object);
-        }
-        $_SESSION["eventsToPrint"] = $res;
-      } else {
-        $_SESSION["pred"] = $_SESSION["eventsToPrint"][0]->getID();
+  }
+
+  if(isset($_POST["checkNextEvents"])) {
+
+    $ide = $_POST["idEvent"];
+    $sql = "SELECT * FROM event WHERE pred = $ide";
+    $result = $con->query($sql);
+    if ($result->num_rows > 0) {
+      $res = [];
+      while ($object = $result->fetch_object("Event")) {
+        array_push($res, $object);
       }
+      $_SESSION["eventsToPrint"] = $res;
+    } else {
+      $_SESSION["pred"] = $_SESSION["eventsToPrint"][0]->getID();
     }
+  }
+
+  if(isset($_POST["deleteEvent"])) {
+
+    deleteEvent($_POST["deleteEvent"]);
+
+    $pred = $_POST["predEvent"];
+    $sql = "SELECT * FROM event WHERE pred = $pred";
+    $result = $con->query($sql);
+
+    $res = [];
+    while ($object = $result->fetch_object("Event")) {
+      array_push($res, $object);
+    }
+    $_SESSION["eventsToPrint"] = $res;
+
+    $_SESSION["pred"] = $_SESSION["eventsToPrint"][0]->getID();
+
   }
 
 ?>

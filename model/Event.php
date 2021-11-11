@@ -15,6 +15,7 @@
     }
 
     public function getPred(): int {
+      if (is_null($this->pred)) {return -1;}
       return $this->pred;
     }
 

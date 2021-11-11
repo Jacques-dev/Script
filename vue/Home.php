@@ -4,6 +4,7 @@
   session_start();
   include("../BDD/Connexion.php");
   include("../controller/Functions.php");
+  include("../controller/EventsManagment.php");
 
   if (isset($_SESSION["pseudo"])) {
     $pseudo = $_SESSION["pseudo"];
