@@ -10,17 +10,27 @@
 
     for ($i = 0 ; $i != $nb ; $i++) {
       ?>
-      <form class="eventForm" style="width: <?= $width; ?>vw; height: <?= $height; ?>vh" action="Home.php" method="post">
+
+      <form class="eventForm" action="Home.php" method="post">
         <input type="hidden" name="idEvent" value="<?= $events[$i]->getID(); ?>">
         <input type="hidden" name="predEvent" value="<?= $events[$i]->getPred(); ?>">
-        <div class="event" style="width: <?= $width; ?>vw; height: <?= $height; ?>vh">
-          <textarea type="text" name="textEvent"><?= $events[$i]->getText(); ?></textarea>
+        <div class="card" style="width: <?= $width; ?>vw; height: <?= $height; ?>vh">
+          <div class="card-img-top" id="eventText<?= $events[$i]->getID(); ?>" style="width: <?= $width; ?>vw; height: <?= $height; ?>vh; display: block">
+            <p class="card-text"><?= $events[$i]->getText(); ?></p>
+          </div>
+          <div class="card-img-top2" id="eventUpdateText<?= $events[$i]->getID(); ?>" style="width: <?= $width; ?>vw; height: <?= $height; ?>vh; display: none">
+            <textarea name="textEvent" style="width: <?= $width; ?>vw; height: <?= $height; ?>vh;"><?= $events[$i]->getText(); ?></textarea>
+            <button class="updateEventButton" type="submit" name="updateEvent">Enregistrer</button>
+          </div>
+          <div class="card-body" id="eventManagementText<?= $events[$i]->getID(); ?>" style="width: <?= $width; ?>vw; height: <?= $height; ?>vh">
+            <button class="eventButton" type="submit" name="deleteEvent">Supprimer</button>
+            <button class="eventButton" type="button" onclick="showEventText('<?= $events[$i]->getID(); ?>')">Modifier</button>
+            <button class="eventButton" type="submit" name="insertEvent">Développer</button>
+            <button class="eventButton" type="submit" name="checkNextEvents">Voir</button>
+          </div>
         </div>
-        <button type="submit" name="checkNextEvents">Voir</button>
-        <button class="deleteEvent" type="submit" name="deleteEvent">Supprimer</button>
-        <button class="updateEvent" type="submit" name="updateEvent">Modifier</button>
-        <button class="insertEvent" type="submit" name="insertEvent">Développer</button>
       </form>
+
       <?php
     }
 
