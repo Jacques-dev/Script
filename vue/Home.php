@@ -86,13 +86,18 @@
                 $name = $_POST["scriptName"];
                 $pseudo = $_SESSION["pseudo"];
                 $sql->execute();
+                $sql = "SELECT ids FROM script ORDER BY ids DESC LIMIT 1";
+                $result = $con->query($sql);
+                addEvent("",-1,$result->fetch_row()[0]);
               }
             } elseif (isset($_POST["updateScript"])) {
               $sql = "UPDATE script SET name = '".$_POST['scriptName']."' WHERE ids = ".$_SESSION["ids"];
               $result = $con->query($sql);
               $_SESSION["scriptName"] = $_POST['scriptName'];
             } elseif (isset($_POST["deleteScript"])) {
-              $sql = "DELETE FROM script WHERE ids = ".$_POST['scriptInfo'];
+              $sql = "DELETE FROM script WHERE ids = ".explode(":",$_POST["scriptInfo"])[0];
+              $result = $con->query($sql);
+              $sql = "DELETE FROM event WHERE script = ".explode(":",$_POST["scriptInfo"])[0];
               $result = $con->query($sql);
             } elseif (isset($_POST["edit"])) {
               $_SESSION["ids"] = explode(":",$_POST["scriptInfo"])[0];
