@@ -87,9 +87,10 @@
                 $pseudo = $_SESSION["pseudo"];
                 $sql->execute();
               }
-            } elseif (isset($_POST["renameScript"])) {
-              $sql = "UPDATE script SET name = '".$_POST['scriptName']."' WHERE ids = ".$_POST['scriptInfo'];
+            } elseif (isset($_POST["updateScript"])) {
+              $sql = "UPDATE script SET name = '".$_POST['scriptName']."' WHERE ids = ".$_SESSION["ids"];
               $result = $con->query($sql);
+              $_SESSION["scriptName"] = $_POST['scriptName'];
             } elseif (isset($_POST["deleteScript"])) {
               $sql = "DELETE FROM script WHERE ids = ".$_POST['scriptInfo'];
               $result = $con->query($sql);

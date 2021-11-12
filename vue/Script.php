@@ -146,6 +146,7 @@
 
   <form class="scriptForm" action="Home.php" method="post">
     <input type="text" name="scriptName" value="<?= $_SESSION["scriptName"]; ?>">
+    <button type="submit" name="updateScript">Modifier</button>
   </form>
 
 </div>
