@@ -20,13 +20,13 @@
           </div>
           <div class="card-img-top2" id="eventUpdateText<?= $events[$i]->getID(); ?>" style="width: <?= $width; ?>vw; height: <?= $height; ?>vh; display: none">
             <textarea name="textEvent" style="width: <?= $width; ?>vw; height: <?= $height; ?>vh;"><?= $events[$i]->getText(); ?></textarea>
-            <button class="updateEventButton fill" type="submit" name="updateEvent">Enregistrer</button>
+            <button class="updateEventButton bt1" type="submit" name="updateEvent">Enregistrer</button>
           </div>
           <div class="card-body" id="eventManagementText<?= $events[$i]->getID(); ?>" style="width: <?= $width; ?>vw; height: <?= $height; ?>vh">
-            <button class="eventButton raise" type="submit" name="deleteEvent">Supprimer</button>
-            <button class="eventButton raise" type="button" onclick="showEventText('<?= $events[$i]->getID(); ?>')">Modifier</button>
-            <button class="eventButton raise" type="submit" name="insertEvent">Développer</button>
-            <button class="checkNextEvents slide" type="submit" name="checkNextEvents"></button>
+            <button class="eventButton bt1" type="submit" name="deleteEvent">Supprimer</button>
+            <button class="eventButton bt1" type="button" onclick="showEventText('<?= $events[$i]->getID(); ?>')">Modifier</button>
+            <button class="eventButton bt1" type="submit" name="insertEvent">Développer</button>
+            <button class="checkNextEvents" type="submit" name="checkNextEvents"><p>Suivre</p></button>
           </div>
         </div>
       </form>
@@ -144,19 +144,19 @@
 <div id="mode">
 
   <form class="scriptForm" action="Home.php" method="post">
-    <button class="up" type="submit" name="comeback">Retour</button>
+    <button class="bt1" type="submit" name="comeback">Retour</button>
   </form>
 
   <form class="scriptForm" action="Home.php" method="post">
     <input type="hidden" name="predEvent" value="<?= $_SESSION["eventsToPrint"][0]->getPred(); ?>">
     <input type="hidden" name="scriptEvent" value="<?= $_SESSION["ids"]; ?>">
     <input type="text" name="textEvent">
-    <button class="addEvent up" type="submit" name="addEvent">Ajouter un event</button>
+    <button class="addEvent bt1" type="submit" name="addEvent">Ajouter un event</button>
   </form>
 
   <form class="scriptForm" action="Home.php" method="post">
     <input type="text" name="scriptName" value="<?= $_SESSION["scriptName"]; ?>">
-    <button class="up" type="submit" name="updateScript">Modifier</button>
+    <button class="bt1" type="submit" name="updateScript">Modifier</button>
   </form>
 
 </div>

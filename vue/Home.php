@@ -60,9 +60,9 @@
       <div id="connexion_creation_buttons">
         <form action="Connexion.php" method="post">
           <?php if (isset($pseudo)){ ?>
-            <button class="close" type="submit" name="logout">Déconnexion</button>
+            <button class="bt2" type="submit" name="logout">Déconnexion</button>
           <?php } else { ?>
-            <button class="pulse" type="submit" name="connexion">Connexion</button>
+            <button class="bt2" type="submit" name="connexion">Connexion</button>
           <?php } ?>
         </form>
       </div>
@@ -70,12 +70,12 @@
       <div id="listOfScripts" class="container-fluid">
         <?php if (isset($pseudo)) { ?>
           <div class="row d-flex justify-content-center">
-            <button class="up" type="submit" name="addScript" onclick="openScriptAddingPan()">Créer script</button>
+            <button class="bt2" type="submit" name="addScript" onclick="openScriptAddingPan()">Créer script</button>
           </div>
           <div class="row d-flex justify-content-center">
             <form action="Home.php" method="post" id="newScript">
               <input type="text" name="scriptName" placeholder="nom">
-              <button class="up" type="submit" name="addNewScript">Valider</button>
+              <button class="bt2" type="submit" name="addNewScript">Valider</button>
             </form>
           </div>
 
@@ -112,8 +112,8 @@
               <div class="script row d-flex justify-content-center">
                 <form action="Home.php" method="post"><?php
                   echo "<input type='hidden' value='".$row["ids"].":".$row["name"]."' name='scriptInfo'/>";
-                  echo "<button class='up col-lg-12' type='submit' name='edit'>".$row["name"]."</button>";
-                  echo "<button class='up col-lg-12' type='submit' name='deleteScript'>Supprimer</button>";?>
+                  echo "<button class='col-lg-12 bt2' type='submit' name='edit'>".$row["name"]."</button>";
+                  echo "<button class='col-lg-12 bt2' type='submit' name='deleteScript'>Supprimer</button>";?>
                   <?php echo "<br>";?>
                 </form>
               </div>
