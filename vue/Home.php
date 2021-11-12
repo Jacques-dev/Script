@@ -44,6 +44,7 @@
   	<!-- Link CSS -->
     <link rel="stylesheet" type="text/css" href="../css/style.css">
     <link rel="stylesheet" type="text/css" href="../css/script.css">
+    <link rel="stylesheet" type="text/css" href="../css/button.css">
   	<!-- icone CSS -->
   	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
   	<!-- Boostrap SCRIPT -->
@@ -51,9 +52,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- Popup CSS -->
-    <link href="https://cdn.isfidev.net/asalertmessage/v1.0/css/as-alert-message.min.css" rel="stylesheet">
-    <script src="https://cdn.isfidev.net/asalertmessage/v1.0/js/as-alert-message.min.js"></script>
 	</head>
 	<body>
 
@@ -62,23 +60,26 @@
       <div id="connexion_creation_buttons">
         <form action="Connexion.php" method="post">
           <?php if (isset($pseudo)){ ?>
-            <button type="submit" name="logout">Déconnexion</button>
+            <button class="close" type="submit" name="logout">Déconnexion</button>
           <?php } else { ?>
-            <button type="submit" name="connexion">Connexion</button>
+            <button class="pulse" type="submit" name="connexion">Connexion</button>
           <?php } ?>
         </form>
       </div>
       <nav2></nav2>
-      <div id="listOfScripts">
-        <?php if (isset($pseudo)){ ?>
-          <button type="submit" name="addScript" onclick="openScriptAddingPan()">Créer script</button>
-          <form action="Home.php" method="post" id="newScript">
-            <input type="text" name="scriptName" placeholder="nom">
-            <button type="submit" name="addNewScript">Valider</button>
-          </form>
+      <div id="listOfScripts" class="container-fluid">
+        <?php if (isset($pseudo)) { ?>
+          <div class="row d-flex justify-content-center">
+            <button class="up" type="submit" name="addScript" onclick="openScriptAddingPan()">Créer script</button>
+          </div>
+          <div class="row d-flex justify-content-center">
+            <form action="Home.php" method="post" id="newScript">
+              <input type="text" name="scriptName" placeholder="nom">
+              <button class="up" type="submit" name="addNewScript">Valider</button>
+            </form>
+          </div>
 
           <?php
-
             if(isset($_POST["addNewScript"])) {
               if (!empty($_POST["scriptName"])) {
                 $sql = $con->prepare("INSERT INTO script (name, pseudo) VALUES (?, ?)");
@@ -108,14 +109,17 @@
             $sql = "SELECT ids, name FROM script WHERE pseudo = '$pseudo'";
             $result = $con->query($sql);
             while ($row = $result->fetch_assoc()) {?>
-              <form action="Home.php" method="post"><?php
-                echo "<input type='hidden' value='".$row["ids"].":".$row["name"]."' name='scriptInfo'/>";
-                echo "<button type='submit' name='edit'>".$row["name"]."</button>";
-                echo "<button type='submit' name='deleteScript'>Supprimer</button>";?>
-                <?php echo "<br>";?>
-              </form><?php
-            }
-          } ?>
+              <div class="script row d-flex justify-content-center">
+                <form action="Home.php" method="post"><?php
+                  echo "<input type='hidden' value='".$row["ids"].":".$row["name"]."' name='scriptInfo'/>";
+                  echo "<button class='up col-lg-12' type='submit' name='edit'>".$row["name"]."</button>";
+                  echo "<button class='up col-lg-12' type='submit' name='deleteScript'>Supprimer</button>";?>
+                  <?php echo "<br>";?>
+                </form>
+              </div>
+            <?php } ?>
+
+          <?php } ?>
       </div>
       <nav3></nav3>
       <div id="webSiteName">
