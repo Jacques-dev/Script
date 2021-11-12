@@ -27,6 +27,15 @@ h2 {
   font-size: 20px;
 }
 
+.show {
+  color: #43dde4;
+  z-index: 5;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  background-color: black;
+}
+
 nav1 {
   background-color: var(--c4);
   position: absolute;

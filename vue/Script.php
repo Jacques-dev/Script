@@ -23,14 +23,6 @@
       </form>
       <?php
     }
-    ?>
-      <form id="addEventForm" action="Home.php" method="post">
-        <input type="hidden" name="predEvent" value="<?= $_SESSION["eventsToPrint"][0]->getPred(); ?>">
-        <input type="hidden" name="scriptEvent" value="<?= $_SESSION["ids"]; ?>">
-        <input type="text" name="textEvent">
-        <button class="addEvent" type="submit" name="addEvent">Ajouter un event</button>
-      </form>
-    <?php
 
   }
 
@@ -45,11 +37,10 @@
     }
     $_SESSION["eventsToPrint"] = $res;
     $_SESSION["startingScript"] = False;
-    $_SESSION["pred"] = $_SESSION["eventsToPrint"][0]->getID();
+    $_SESSION["pred"] = -1;
   }
 
   if(isset($_POST["checkNextEvents"])) {
-
     $ide = $_POST["idEvent"];
     $sql = "SELECT * FROM event WHERE pred = $ide";
     $result = $con->query($sql);
@@ -59,9 +50,9 @@
         array_push($res, $object);
       }
       $_SESSION["eventsToPrint"] = $res;
-    } else {
-      $_SESSION["pred"] = $_SESSION["eventsToPrint"][0]->getID();
+      $_SESSION["pred"] = $_POST["predEvent"];
     }
+
   }
 
   if(isset($_POST["deleteEvent"]) || isset($_POST["addEvent"]) || isset($_POST["updateEvent"])) {
@@ -90,7 +81,7 @@
       array_push($res, $object);
     }
     $_SESSION["eventsToPrint"] = $res;
-    $_SESSION["pred"] = $_SESSION["eventsToPrint"][0]->getID();
+    $_SESSION["pred"] = $_POST["predEvent"];
 
   }
 
@@ -104,13 +95,59 @@
       array_push($res, $object);
     }
     $_SESSION["eventsToPrint"] = $res;
-    $_SESSION["pred"] = $_SESSION["eventsToPrint"][0]->getID();
+    $_SESSION["pred"] = $_POST["predEvent"];
+  }
+
+  if(isset($_POST["comeback"])) {
+    $pred = $_SESSION["pred"];
+    if ($pred == -1) {
+      $ids = $_SESSION["ids"];
+      $sql = "SELECT * FROM event WHERE pred IS NULL AND script = $ids";
+    } else {
+      $sql = "SELECT * FROM event WHERE pred = $pred";
+    }
+    $result = $con->query($sql);
+
+    $res = [];
+    while ($object = $result->fetch_object("Event")) {
+      array_push($res, $object);
+    }
+    $_SESSION["eventsToPrint"] = $res;
+
+    if ($pred == -1) {
+      $_SESSION["pred"] = -1;
+    } else {
+      $pred = $_SESSION["eventsToPrint"][0]->getPred();
+      $sql = "SELECT pred FROM event WHERE ide = $pred";
+      $result = $con->query($sql);
+
+      if (is_null($result->fetch_row()[0])) {
+        $_SESSION["pred"] = -1;
+      } else {
+        $_SESSION["pred"] = $result->fetch_row()[0];
+      }
+    }
   }
 
 ?>
 
 <div id="mode">
-  <?= $_SESSION["scriptName"]; ?>
+
+  <form class="scriptForm" action="Home.php" method="post">
+    <button type="submit" name="comeback">Retour</button>
+  </form>
+
+  <form class="scriptForm" action="Home.php" method="post">
+    <input type="hidden" name="predEvent" value="<?= $_SESSION["eventsToPrint"][0]->getPred(); ?>">
+    <input type="hidden" name="scriptEvent" value="<?= $_SESSION["ids"]; ?>">
+    <input type="text" name="textEvent">
+    <button class="addEvent" type="submit" name="addEvent">Ajouter un event</button>
+  </form>
+
+  <form class="scriptForm" action="Home.php" method="post">
+    <input type="text" name="scriptName" value="<?= $_SESSION["scriptName"]; ?>">
+  </form>
+
 </div>
 
 <div id="content">

@@ -4,15 +4,22 @@
 #mode {
   position: fixed;
   top: 5vh;
-  left: 10vw;
-  width: 90vw;
+  left: 15vw;
+  width: 85vw;
   height: 5vh;
-  /* background-color: var(--c2); */
+  background-color: var(--c2);
+  color: var(--c1);
   text-align: center;
 }
 
-#mode button {
+#mode button, #mode input {
   margin-top: 1.2vh;
+}
+
+.scriptForm {
+  float: left;
+  margin-left: 2.5vw;
+  margin-right: 5vw;
 }
 
 #content {
@@ -22,7 +29,8 @@
   width: 90vw;
   height: 90vh;
   /* background-color: yellow; */
-  padding: 25px;
+  margin-top: 2.5vw;
+  margin-left: 2.5vw;
   overflow: scroll;
 }
 
@@ -42,12 +50,6 @@
   max-width: 20vw;
   max-height: 20vh;
   z-index: 1;
-}
-
-#addEventForm {
-  position: fixed;
-  bottom: 5vh;
-  left: 16.5vw;
 }
 
 .deleteEvent, .updateEvent {
