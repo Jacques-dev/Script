@@ -27,7 +27,12 @@
     $sql->bind_param('sii', $text, $pred, $script);
 
     $text = $textEvent;
-    $pred = $predEvent;
+    if ($predEvent == -1) {
+      $pred = NULL;
+    } else {
+      $pred = $predEvent;
+    }
+
     $script = $scriptEvent;
 
     $sql->execute();
