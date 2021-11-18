@@ -1,10 +1,12 @@
 import React from 'react';
-import Navigation from '../components/Navigation';
+import TopNav from '../components/TopNav';
+import LeftNav from '../components/LeftNav';
 
 const Home = () => {
   return (
     <div className="home">
-      <Navigation/>
+      <TopNav/>
+      <LeftNav/>
       <h1>Bonjour</h1>
     </div>
   );
